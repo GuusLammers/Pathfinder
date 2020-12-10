@@ -164,53 +164,63 @@ def dist_manhattan(p1, p2):
 	return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1]) 
 
 
-# DIJKSTRAS SEARCH
+# DIJKSTRAS SEARCH ALGORITHM
 def dijkstras(draw, graph, start, end):
 	counter = 0
 	open_set = PriorityQueue()
 	open_set.put((0, counter, start))
-	
 	came_from = {}
 	
+	# set scores for all nodes to infinity and score for start to 0
 	g_score = {}
 	for row in graph:
 		for node in row:
 			g_score[node] = float('inf')
 	g_score[start] = 0	
 
+	# add start to open set and closed
 	open_set_hash = {start}
 	closed = {start}
 
+	# main loop, runs until open set is empty or end node is found
 	while not open_set.empty():
+		# allows closing of application while running
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
 				pg.quit()
 
+		# get current node object from priority queue		
 		current_node = open_set.get()[2]
 		open_set_hash.remove(current_node)
 		
+		# check if current node is the end node
 		if current_node == end:
 			construct_path(came_from, end, start, end, draw)
 			end.set_end()
 			start.set_start()
 			return True
 
+		# check all of current nodes neighbors
 		for neighbor in current_node.neighbors:
 			g_score_temp = g_score[current_node] + 1
+			# if a path with a lower score to a neighbor is found overwrite previous score
 			if g_score_temp < g_score[neighbor]:
 				came_from[neighbor] = current_node
 				g_score[neighbor] = g_score_temp
+				# if neighbor has not been analyzed add to open set
 				if neighbor not in open_set_hash and neighbor not in closed:
 					counter += 1
 					open_set.put((g_score[neighbor], counter, neighbor))
 					open_set_hash.add(neighbor)
 					neighbor.set_open()
 
+		# redraw updated screen			
 		draw()			
 		if current_node != start:
 			current_node.set_closed()
 			closed.add(current_node)
-					
+	
+	# if no path to en is found return false				
 	return False		
 
 
@@ -219,9 +229,9 @@ def a_star(draw, graph, start, end):
 	counter = 0
 	open_set = PriorityQueue()
 	open_set.put((0, counter, start))
-	
 	came_from = {}
 	
+	# set scores for all nodes to infinity and score for start to manhattan distance
 	g_score = {}
 	f_score = {}
 	for row in graph:
@@ -231,40 +241,50 @@ def a_star(draw, graph, start, end):
 	g_score[start] = 0
 	f_score[start] = dist_manhattan(start.position(), end.position())		
 
+	# add start to open set and closed
 	open_set_hash = {start}
 	closed = {start}
 
+	# main loop, runs until open set is empty or end node is found
 	while not open_set.empty():
+		# allows closing of application while running
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
 				pg.quit()
 
+		# get current node object from priority queue			
 		current_node = open_set.get()[2]
 		open_set_hash.remove(current_node)
 		
+		# check if current node is the end node
 		if current_node == end:
 			construct_path(came_from, end, start, end, draw)
 			end.set_end()
 			start.set_start()
 			return True
 
+		# check all of current nodes neighbors	
 		for neighbor in current_node.neighbors:
 			g_score_temp = g_score[current_node] + 1
+			# if a path with a lower score to a neighbor is found overwrite previous score
 			if g_score_temp < g_score[neighbor]:
 				came_from[neighbor] = current_node
 				g_score[neighbor] = g_score_temp
 				f_score[neighbor] = g_score_temp + dist_manhattan(neighbor.position(), end.position())
+				# if neighbor has not been analyzed add to open set
 				if neighbor not in open_set_hash and neighbor not in closed:
 					counter += 1
 					open_set.put((f_score[neighbor], counter, neighbor))
 					open_set_hash.add(neighbor)
 					neighbor.set_open()
 
+		# redraw updated screen					
 		draw()			
 		if current_node != start:
 			current_node.set_closed()
 			closed.add(current_node)
-					
+				
+	# if no path to en is found return false				
 	return False		
 
 
@@ -273,51 +293,56 @@ def best_first_search(draw, graph, start, end):
 	counter = 0
 	open_set = PriorityQueue()
 	open_set.put((0, counter, start))
-	
 	came_from = {}
 	
+	# set scores for all nodes to infinity and score for start to manhattan distance
 	f_score = {}
 	for row in graph:
 		for node in row:
 			f_score[node] = float('inf')
-
 	f_score[start] = dist_manhattan(start.position(), end.position())		
 
+	# add start to open set and closed
 	open_set_hash = {start}
 	closed = {start}
 
+	# main loop, runs until open set is empty or end node is found
 	while not open_set.empty():
+		# allows closing of application while running
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
 				pg.quit()
 
+		# get current node object from priority queue			
 		current_node = open_set.get()[2]
 		open_set_hash.remove(current_node)
 		
+		# check if current node is the end node
 		if current_node == end:
 			construct_path(came_from, end, start, end, draw)
 			end.set_end()
 			start.set_start()
 			return True
 
+		# check all of current nodes neighbors		
 		for neighbor in current_node.neighbors:
 			if neighbor not in closed:
 				came_from[neighbor] = current_node
-				f_score[neighbor] = dist_manhattan(neighbor.position(), end.position())
-				if 
-
-
+				f_score[neighbor] = dist_manhattan(neighbor.position(), end.position()) 
+				# if neighbor has not been analyzed add to open set
 				if neighbor not in open_set_hash:
 					counter += 1
 					open_set.put((f_score[neighbor], counter, neighbor))
 					open_set_hash.add(neighbor)
 					neighbor.set_open()
 
+		# redraw updated screen					
 		draw()			
 		if current_node != start:
 			current_node.set_closed()
 			closed.add(current_node)
-					
+			
+	# if no path to en is found return false					
 	return False		
 
 
@@ -346,158 +371,171 @@ def init_graph(rows, width):
 	return graph		
 		
 
-# CURRENT ALGORITHM RUNNING DISPLAY
-def running(win, width, running):	
-	labels = [
-		# dijkstras
-		myfont.render('Dijkstras Search', True, (0, 0, 0)),
-		# A* euclidean
-		myfont.render('A* Search', True, (0, 0, 0)),
-		# bfs euclidean
-		myfont.render('Best First Search', True, (0, 0, 0))
-	]
-
-	if running[0]:
-		win.blit(labels[0], (0, width))
-
-	elif running[1]:
-		win.blit(labels[1], (0, width))
-		
-	elif running[2]:
-		win.blit(labels[2], (0, width))
-
-
-
 # DRAW OUT SCREEN
 def draw(win, grid, rows, width, labels):
+	# make background grey
 	win.fill(grey)
 
+	# draw all nodes
 	for row in grid:
 		for node in row:
 			node.draw()
 
+	# draw labels
 	labels.draw(width, win)
-			
+		
+	# update display		
 	pg.display.update()			
 
 
 # RETURN CLICKED NODES POSITION IN 2D LIST (GRAPH)
 def clicked_node(pos, rows, width):
-	gap = width//rows
+	gap = width // rows
 	x, y = pos
 
-	row = y//gap
-	col = x//gap
+	row = y // gap
+	col = x // gap
 
 	return row, col
 
 
 # MAIN FUNCTION, CONTROLLS MAIN LOOP
 def main(win, width):
+	# set number of rows
 	rows = 70
+
+	# initialize graph and labels
 	graph = init_graph(rows, width)
-	
 	labels = Label()
 	labels.set_idle()
 
+	# controls if start and end nodes have been placed or not
 	start = None
 	end = None
 
+	# controls if main loop is running and if algorithm is running
 	run = True
 	started = False
 
+	# main loop
 	while run:
+		# draw screen
 		draw(win, graph, rows, width, labels)
+		
+		# check through all events
 		for event in pg.event.get():
+			# allows user to close app
 			if event.type == pg.QUIT:
 				run = False
 
+			# if algorithm is running skip remaining instrucions in loop	
 			if started: 
 				continue	
 
-			# if left mouse button is clicked	
+			# if left mouse button is clicked set node depending on conditions	
 			if pg.mouse.get_pressed()[0]:
 				try:
 					pos = pg.mouse.get_pos()
 					col, row = clicked_node(pos, rows, width)
 					node = graph[row][col]
+					# place start node if not yet placed
 					if not start:
 						start = node
 						start.set_start()
+					# place end node if not yet placed	
 					elif not end:	
 						if node != start:
 							end = node
 							end.set_end()
+					# place barrier if start and end node have been placed		
 					elif node != start and node != end:
 						node.set_barrier()
 
 				except:
 					pass		
 
-			# if right mouse button is clicked	
+			# if right mouse button is clicked reset node	
 			elif pg.mouse.get_pressed()[2]:
 				try:
 					pos = pg.mouse.get_pos()
 					col, row = clicked_node(pos, rows, width)
 					node = graph[row][col]
+					# if node is start reset node and set start to none
 					if node is start:
 						node.reset()
 						start = None
+					# if node is end reset node and set end to none
 					elif node is end:
 						node.reset()
 						end = None
+					# reset node
 					else:
 						node.reset()		
 
 				except:
 					pass
 
+			# if key pressed		
 			if event.type == pg.KEYDOWN:
-				# run dijkstras search algoritm
+				# if key 1 is pressed run dijkstras search algoritm
 				if event.key == pg.K_1 and not started:
+					# update neighbors for all nodes in graph
 					for row in graph:
 						for node in row:
 							node.add_neighbors(graph)
 						
+					# set label to display running algorithm	
 					labels.set_dijkstras()		
 
+					# run algorithm
 					dijkstras(lambda: draw(win, graph, rows, width, labels), graph, start, end)	
 
+					# set label to display idle
 					labels.set_idle()
 
-				# run A* search algoritm
+				# if key 2 is pressed run A* search algoritm
 				elif event.key == pg.K_2 and not started:
+					# update neighbors for all nodes in graph
 					for row in graph:
 						for node in row:
 							node.add_neighbors(graph)
 						
+					# set label to display running algorithm	
 					labels.set_a_star()		
 
+					# run algorithm
 					a_star(lambda: draw(win, graph, rows, width, labels), graph, start, end)
 					
+					# set label to display idle
 					labels.set_idle()
 
-				# run best first search algoritm
+				# if key 3 is pressed run best first search algoritm
 				elif event.key == pg.K_3 and not started:
+					# update neighbors for all nodes in graph
 					for row in graph:
 						for node in row:
 							node.add_neighbors(graph)
 						
+					# set label to display running algorithm	
 					labels.set_bfs()		
 
+					# run algorithm
 					best_first_search(lambda: draw(win, graph, rows, width, labels), graph, start, end)		
 
+					# set label to display idle
 					labels.set_idle()
 
-				# run all search algorithms
+				# if key space is pressed run all search algorithms
 				elif event.key == pg.K_SPACE and not started:
+					# update neighbors for all nodes in graph
 					for row in graph:
 						for node in row:
 							node.add_neighbors(graph)
-	
+
+					# set label to display running algorithm	
 					labels.set_dijkstras()		
 
-					# run dijkstras
+					# run algorithm
 					dijkstras(lambda: draw(win, graph, rows, width, labels), graph, start, end)	
 
 					# sleep for 2.5 seconds
@@ -511,9 +549,10 @@ def main(win, width):
 					start.set_start()
 					end.set_end()			
 
+					# set label to display running algorithm
 					labels.set_a_star()
 
-					# run A*
+					# run algorithm
 					a_star(lambda: draw(win, graph, rows, width, labels), graph, start, end)	
 
 					# sleep for 2.5 seconds
@@ -530,14 +569,16 @@ def main(win, width):
 					# sleep for 2.5 seconds
 					time.sleep(2.5)
 
+					# set label to display running algorithm
 					labels.set_bfs()
 
-					# run best first search
+					# run algorithm
 					best_first_search(lambda: draw(win, graph, rows, width, labels), graph, start, end)	
 
+					# set label to display idle
 					labels.set_idle()
 
-				# reset graph	
+				# if key c is pressed reset graph	
 				elif event.key == pg.K_c and not started:
 					start = None
 					end = None
