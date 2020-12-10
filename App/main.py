@@ -22,7 +22,7 @@ red = (255, 0, 0)
 myfont = pg.font.SysFont('Arial', 15)
 
 
-# SET DISPLAY
+# SET DISPLAY CAPTION, WIDTH, AND HEIGHT
 window = pg.display.set_mode((width, height))
 pg.display.set_caption('Pathfinder')
 
@@ -41,30 +41,39 @@ class Node:
 		self.neighbors = []
 		self.color = white
 
+	# returns (x,y) position of node on screen
 	def position(self):
 		return (self.x_pos, self.y_pos)
 
+	# sets node to start node by making it green	
 	def set_start(self):
 		self.color = green
 
+	# sets node to end node by making it red
 	def set_end(self):
 		self.color = red	
 
+	# sets node to barrier by making it black	
 	def set_barrier(self):
 		self.color = black	
 
+	# adds node to open set by making it light blue
 	def set_open(self):
 		self.color = light_blue	
 		
+	# sets node to closed by making it dark blue	
 	def set_closed(self):
 		self.color = dark_blue	
 
+	# sets node to pink to draw the shortest path	
 	def set_path(self):
 		self.color = pink			
 
+	# resets node by making it white
 	def reset(self):
 		self.color = white	
 	
+	# draws node represented as a rectangle on screen at its specified (x,y) position
 	def draw(self):
 		pg.draw.rect(window, self.color, (self.x_pos, self.y_pos, self.width, self.height))	
 
@@ -91,11 +100,8 @@ class Node:
 			if right.color != black:
 				self.neighbors.append(right)
 
-	#def __lt__(self, other):
-		#return False			
 
-
-# LABEL CLASS 
+# LABEL CLASS CONTROLS LABEL BEING DISPLAYED AT BOTTOM OF SCREEN 
 class Label:
 
 	def __init__(self):
@@ -116,18 +122,23 @@ class Label:
 		self.label_a_star = [myfont.render('A*', True, (0, 0, 0))]
 		self.label_bfs = [myfont.render('Best First Search', True, (0, 0, 0))]
 
+	# show idle labels
 	def set_idle(self):
 		self.labels = self.labels_idle
 
+	# show dijkstras label
 	def set_dijkstras(self):
 		self.labels = self.label_dijkstras
 
+	# show a star label
 	def set_a_star(self):
 		self.labels = self.label_a_star
 		
+	# show best first search label		
 	def set_bfs(self):
 		self.labels = self.label_bfs
 
+	# draws labels on screen
 	def draw(self, width, win):
 		# check if num labels is 1 or not
 		if len(self.labels) == 1:
@@ -135,6 +146,7 @@ class Label:
 			offset = 0.5 * (width - text_len)
 			win.blit(self.labels[0], (offset, width))
 
+		# shows idle labels if system is in idle state	
 		else:
 			text_len = 0
 			for label in self.labels:
@@ -292,6 +304,9 @@ def best_first_search(draw, graph, start, end):
 			if neighbor not in closed:
 				came_from[neighbor] = current_node
 				f_score[neighbor] = dist_manhattan(neighbor.position(), end.position())
+				if 
+
+
 				if neighbor not in open_set_hash:
 					counter += 1
 					open_set.put((f_score[neighbor], counter, neighbor))
