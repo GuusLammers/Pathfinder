@@ -10,10 +10,18 @@ It allows the user to place the start node (green), end node (red), and barriers
 If you would like to see a visual of the search algoritms running there is a video in the video folder of this repository showing the algorithms searching through different mazes! 
 
 # What I Learnt
-1- How to implement the backtrack algorithm.<br />
-2- Worked with tkinter to build GUI application.<br />
-3- Used object oriented programming.<br />
-4- Used Pillow library to manage images.
+<ol>
+ <li>Used Pygame to build visualiztion GUI.</li>
+ <li>Built graph by creating a custom Node class.</li>
+ <li>Implemented the following path finding algorithms Dijkstra's:
+  <ul>
+    <li>Dijkstra's (Breadth First Search)</li>
+    <li>A* (Guided search using manhattan heuristic)</li>
+    <li>Best First search (Greedy search using manhattan heuristic)</li> 
+  </ul>
+ </li>
+ <li>Implemented full authorization/authentication functionality using flask_login.</li>
+</ol>
 
 # User Instructions
 1- Save all contents of the folder "GUI Sudoku Solver" on your computer in the same folder.<br />
