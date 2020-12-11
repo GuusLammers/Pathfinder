@@ -1,7 +1,7 @@
 # Pathfinder
 This is a visulaization tool that compares Dijkstras search, A* search, and Best First Search pathfinding algorithms. 
 
-<p align="center"><img src="img/idle.png" width="50%" height="50%"></p>
+<p align="center"><img src="img/idle.PNG" width="50%" height="50%"></p>
 
 It allows the user to place the start and end point anywhere on the grid
 
