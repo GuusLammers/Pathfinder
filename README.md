@@ -13,11 +13,11 @@ If you would like to see a visual of the search algoritms running there is a vid
 <ol>
  <li>Used Pygame to build visualiztion GUI.</li>
  <li>Built graph by creating a custom Node class.</li>
- <li>Implemented the following path finding algorithms Dijkstra's:
+ <li>Implemented the following path finding algorithms:
   <ul>
-    <li>Dijkstra's (Breadth First Search)</li>
-    <li>A* (Guided search using manhattan heuristic)</li>
-    <li>Best First search (Greedy search using manhattan heuristic)</li> 
+    <li><b>Dijkstra's</b> (Breadth First Search)</li>
+    <li><b>A*</b> (Guided search using manhattan heuristic)</li>
+    <li><b>Best First search</b> (Greedy search using manhattan heuristic)</li> 
   </ul>
  </li>
  <li>Implemented full authorization/authentication functionality using flask_login.</li>
