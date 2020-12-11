@@ -3,7 +3,11 @@ This is a visulaization tool that compares Dijkstras search, A* search, and Best
 
 <p align="center"><img src="img/idle.PNG" width="50%" height="50%"></p>
 
-It allows the user to place the start and end point anywhere on the grid
+It allows the user to place the start node (green), end node (red), and barriers (black) anywhere on the grid. When the algorithm is activated it attempts to find the shortest path between the start and end node. A picture showing the shortest path is shown below.  
+
+<p align="center"><img src="img/path.PNG" width="50%" height="50%"></p>
+
+If you would like to see a visual of the search algoritms running there is a video in the video folder of this repository showing the algorithms searching through different mazes! 
 
 # What I Learnt
 1- How to implement the backtrack algorithm.<br />
