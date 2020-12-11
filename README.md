@@ -15,21 +15,19 @@ If you would like to see a visual of the search algoritms running there is a vid
  <li>Built graph by creating a custom Node class.</li>
  <li>Implemented the following path finding algorithms:
   <ul>
-    <li><b>Dijkstra's</b> (Breadth First Search)</li>
-    <li><b>A*</b> (Guided search using manhattan heuristic)</li>
-    <li><b>Best First search</b> (Greedy search using manhattan heuristic)</li> 
+    <li><b>Dijkstra's</b> (Breadth First Search).</li>
+    <li><b>A*</b> (Guided search using manhattan heuristic).</li>
+    <li><b>Best First Search</b> (Greedy search using manhattan heuristic).</li> 
   </ul>
  </li>
- <li>Implemented full authorization/authentication functionality using flask_login.</li>
 </ol>
 
 # User Instructions
-1- Save all contents of the folder "GUI Sudoku Solver" on your computer in the same folder.<br />
-2- Run "Sudoku Solver GUI.py". The GUI window will display as shown below.<br/>
-
-<p align="center"><img src="Images/GUI.JPG" width="50%" height="50%"></p>
-
-3- Try beating the puzzle! To make an entry enter a number into a field and click "Enter Value" if the entry is correct the board will update and the input field for the cell you updated will disapear, if the entry is wrong nothing will happen.
-4- If you get stuck click "Solve Game" and the program will solve the rest of the puzzle for you.
+<ol>
+ <li>Download the main.py file and store it somewhere on your computer.</li>
+ <li>To run the code you will need to create a Python environment and install pygame by opening your terminal and typing 'pip install pygame', this is the only external library you should need.</li>
+ <li>Run the program from within your IDE or from the command line.</li>
+ <li>To place the start node, end node, and barriers simply right click on the d=grid where you would like the node to be placed. To remove any nodes you can erase them by left cleft clicking.</li>
+</ol>
 
  
